@@ -3,7 +3,7 @@ import Page from '../shared/Page'
 import Table from '../shared/Table'
 import useRoles from '../../hooks/useRoles'
 
-const RolesPage = () => {
+const RolesPage = ({doAction}) => {
 
     const {
         response,
@@ -15,7 +15,7 @@ const RolesPage = () => {
     return <Page title="Roles">
         {loading && <p>Loading...</p>}
         {error && <p>{error}</p>}
-        {response && <Table data={response.roles} functions={functions} />}
+        {response && <Table data={response.roles} functions={functions} doAction={doAction}/>}
     </Page>
 }
 
