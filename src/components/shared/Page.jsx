@@ -1,3 +1,5 @@
+import React from 'react'
+
 const Page = ({ title, children }) => {
     return (
         <div className="page">
