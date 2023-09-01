@@ -1,0 +1,21 @@
+body {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+}
+.page {
+    width: 100%;
+}
+h1 {
+    width: 100%;
+    background: darkblue;
+    margin: 0;
+    font-size: 30px;
+    padding: 40px 0;
+    color: white;
+    text-transform: uppercase;
+}
+a {
+    cursor: pointer;
+}

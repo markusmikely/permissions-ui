@@ -6,22 +6,38 @@ import RolesPage from './components/pages/RolesPage'
 import useSanitize from './hooks/useSanitize'
 import useAction from './hooks/useAction'
 import useModal from './hooks/useModal'
+import usePermissions from './hooks/usePermissions'
+import useRoles from './hooks/useRoles'
 
 function App() {
     const {
       open, 
       setOpen,
       modalContent,
-      setModalContent
+      doAction
     } = useModal()
-    const { sanitize } = useSanitize()
-    const { doAction } = useAction({setModalContent, setOpen})
+
+    const {
+      permissions
+    } = usePermissions()
+    const {
+      roles,
+      functions,
+      formData
+  } = useRoles(permissions)
+
+
 
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<RolesPage doAction={doAction} />} />
+          <Route path="/" element={<RolesPage 
+            roles={roles}
+            permissions={permissions}
+            functions={functions}
+            formData={formData}
+            doAction={doAction} />} />
         </Routes>
       </Router>
       <Modal 

@@ -1,18 +1,18 @@
 import React from "react";
+import CustomForm from "../components/forms/CustomForm";
 
-const useAction = ({setModalContent, setOpen}) => {
+const useAction = ({setModalContent, setOpen, formData}) => {
     const doAction = (elem, val) => {
         setOpen(false);
-        console.log(elem, val)
         switch(val) {
             case 'edit':
-                setModalContent(elem)
+                setModalContent(<CustomForm formData={formData} />)
                 break;
             case 'delete':
-                setModalContent(elem)
+                setModalContent(<CustomForm formData={formData}/>)
                 break;
             case 'create':
-                setModalContent(val)
+                setModalContent(<CustomForm formData={formData}/>)
                 break;
         }
         setOpen(true);
