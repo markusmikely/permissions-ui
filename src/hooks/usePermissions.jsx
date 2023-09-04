@@ -10,7 +10,7 @@ const usePermissions = ({setData}) => {
         fetchRequest
     } = useAPI()
 
-    const formData = {
+    const permissionsFormData = {
         type: "create",
         entity: "permission",
         fields: [
@@ -43,6 +43,29 @@ const usePermissions = ({setData}) => {
         ]
     }
 
+    const getPermissionsFormData = (values, type) => {
+
+        return type === "edit" ? getEditFormData(values) : getDeleteFormData(values)
+    }
+
+    const getEditFormData = values => {
+        let editFormData = {...formData}   
+        editFormData.type = "edit"
+        editFormData.fields.forEach(field => {
+            field.value = values[field.name]
+        })
+        return editFormData
+    }
+
+    const getDeleteFormData = values => {
+        console.log('vs', values)
+        let deleteFormData = {
+            _id: values["_id"],
+            type: formData.entity
+        }
+        return deleteFormData
+    }
+        
     React.useEffect(() => {
         fetchRequest('/permissions/permissions')
     }, [])
@@ -53,8 +76,10 @@ const usePermissions = ({setData}) => {
         }
     }, [response])
 
-
-    return {}
+    return {
+        permissionsFormData,
+        getPermissionsFormData
+    }
 }
 
 export default usePermissions

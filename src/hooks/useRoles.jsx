@@ -8,7 +8,7 @@ const useRoles = ({data, setData}) => {
         "remove"
     ]
 
-    const formData = {
+    const rolesFormData = {
         type: "create",
         entity: "role",
         fields: [
@@ -50,7 +50,7 @@ const useRoles = ({data, setData}) => {
         ]
     }
 
-    const getFormData = (values, type) => {
+    const getRolesFormData = (values, type) => {
 
         return type === "edit" ? getEditFormData(values) : getDeleteFormData(values)
     }
@@ -93,8 +93,8 @@ const useRoles = ({data, setData}) => {
         loading,
         error, 
         functions,
-        formData,
-        getFormData
+        rolesFormData,
+        getRolesFormData
     }
 }
 

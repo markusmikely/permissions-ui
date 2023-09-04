@@ -17,7 +17,12 @@ const useModal = () => {
                 setModalContent(<CustomForm formData={formData} />)
                 break;
             case 'remove':
-                setModalContent(<ConfirmForm action="delete" type={formData.type} item={values.name} />)
+                setModalContent(<ConfirmForm 
+                    handleCancel={() => setOpen(false)}
+                    handleConfirm={e => console.log( "delete:", formData.type, values._id)}
+                    action="delete" 
+                    type={formData.type} 
+                    item={values.name} />)
                 break;
             case 'create':
                 setModalContent(<CustomForm formData={formData}/>)

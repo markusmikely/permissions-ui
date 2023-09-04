@@ -25,12 +25,15 @@ function App() {
       doAction
     } = useModal()
 
-    const {} = usePermissions({setData})
+    const {
+      permissionsFormData,
+      getPermissionsFormData
+    } = usePermissions({setData})
 
     const {
       functions,
-      formData,
-      getFormData
+      rolesFormData,
+      getRolesFormData
   } = useRoles({data, setData})
 
   return (
@@ -49,10 +52,16 @@ function App() {
             roles={data.roles}
             permissions={data.permissions}
             functions={functions}
-            formData={formData}
-            getFormData={getFormData}
+            formData={rolesFormData}
+            getFormData={getRolesFormData}
             doAction={doAction} />} />
-          <Route path="/permissions" element={<PermissionsPage />} />
+          <Route path="/permissions" element={<PermissionsPage 
+            permissions={data.permissions}
+            functions={functions}
+            formData={permissionsFormData}
+            getFormData={getPermissionsFormData}
+            doAction={doAction} 
+          />} />
         </Routes>
       </Router>
       <Modal 
