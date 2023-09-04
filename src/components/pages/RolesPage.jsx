@@ -3,13 +3,13 @@ import Page from '../shared/Page'
 import Table from '../shared/Table'
 import useRoles from '../../hooks/useRoles'
 
-const RolesPage = ({roles, functions, formData, doAction}) => {
+const RolesPage = ({roles, functions, getFormData, formData, doAction}) => {
 
     return <Page title="Roles">
-        {roles.length > 0 && 
+        {roles && 
             <>
                 <button type='button' onClick={() => doAction('create', formData)}>Create new Role</button>
-                <Table data={roles} functions={functions} doAction={doAction} formData={formData} />
+                <Table getFormData={getFormData} data={roles} functions={functions} doAction={doAction} formData={formData} />
             </>        
         }
     </Page>

@@ -1,13 +1,12 @@
 import React from "react";
 
-const ConfirmForm = ({confirmText}) => {
+const ConfirmForm = ({action, type, item, handleCancel, handleConfirm}) => {
 
-    const handleConfirm = () => {}
-    const handleCancel = () => {}
-    
     return <div className="confirm">
         <div className="confirm-body">
-            <p>Are you sure you want to {confirmText}</p>
+            <p>Are you sure you want to {action}</p>
+            <p><b>{type}</b></p>
+            <p className="large"><b>{item}</b></p>
         </div>
         <div className="confirm-actions">
             <button onClick={handleConfirm} className="button confirm">Confirm</button>

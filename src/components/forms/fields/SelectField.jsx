@@ -1,6 +1,6 @@
 import React from "react";
 
-const SelectField = ({ field, handleChange }) => {
+const SelectField = ({ form, field, handleChange }) => {
 
     console.log(field.options)
     if(!field.options) return null 
@@ -8,8 +8,8 @@ const SelectField = ({ field, handleChange }) => {
     return (
         <select 
             name={field.name}
+            value={form[field.name]}
             onChange={e => handleChange(e, field.name)}>
-                <option value="all">All Roles</option>
                 {field.options.map((option, optionIndex) => {
                     return <option key={optionIndex} value={option._id}>{option.name}</option>
                 })}

@@ -1,3 +1,5 @@
+import React from "react";
+import Page from "./../shared/Page"
 import useUsers from "../../hooks/useUsers"
 
 const UserPage = () => {
@@ -9,9 +11,7 @@ const UserPage = () => {
     } = useUsers()
 
     return <Page title="Users">
-        {loading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
-        {response && <Table data={response} functions={functions} />}
+       
     </Page>
 }
 

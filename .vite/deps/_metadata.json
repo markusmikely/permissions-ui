@@ -1,23 +1,29 @@
 {
-  "hash": "a059cf6e",
-  "browserHash": "c90bc6b9",
+  "hash": "c23b2834",
+  "browserHash": "b9ff3de4",
   "optimized": {
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "992c2836",
+      "fileHash": "306419ec",
       "needsInterop": true
     },
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "7d1ab089",
+      "fileHash": "9be37b7a",
       "needsInterop": true
     },
     "react-router-dom": {
       "src": "../../node_modules/react-router-dom/dist/index.js",
       "file": "react-router-dom.js",
-      "fileHash": "058b76b9",
+      "fileHash": "dd0529a6",
+      "needsInterop": false
+    },
+    "react-multi-select-component": {
+      "src": "../../node_modules/react-multi-select-component/dist/esm/index.js",
+      "file": "react-multi-select-component.js",
+      "fileHash": "82b1094f",
       "needsInterop": false
     }
   },

@@ -1,21 +1,22 @@
 import React from "react";
 import useSanitize from "../../hooks/useSanitize";
 
-const TableData = ({data, functions, doAction}) => {
-    const { sanitize } = useSanitize()
+const TableData = ({data, functions, doAction, getFormData}) => {
+    const { sanitize } = useSanitize({data})
     return <tbody>
         {data.map((tableRow, tableRowIndex) => {
             return <tr key={tableRowIndex}>
                  {Object.values(tableRow).map((rowItem, rowItemIndex) => {
                     return <td key={rowItemIndex}>
-                      {sanitize(rowItem)}
+                      {sanitize(rowItem, Object.keys(tableRow)[rowItemIndex])}
                     </td>
                 })}
                 {functions.map((fn, fnIndex) => {
                     return <td key={fnIndex}>
                         <a onClick={() => doAction(
-                            tableRow,
-                            fn
+                            fn,
+                            getFormData(tableRow, fn),
+                            tableRow
                         )}>{fn}</a>
                     </td>
                 })}

@@ -1,9 +1,7 @@
 import React from "react"
 import useAPI from "./useAPI"
 
-const usePermissions = () => {
-
-    const [permissions, setPermissions] = React.useState([])
+const usePermissions = ({setData}) => {
 
     const {
         response,
@@ -51,17 +49,12 @@ const usePermissions = () => {
 
     React.useEffect(() => {
         if(response) {
-            setPermissions(response.permissions)
+            setData(prevData => ({...prevData, permissions: response.permissions}))
         }
     }, [response])
 
-    React.useEffect(() => {
-        console.log(permissions)
-    }, [permissions])
 
-    return {
-        permissions
-    }
+    return {}
 }
 
 export default usePermissions

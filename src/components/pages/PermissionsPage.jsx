@@ -1,3 +1,4 @@
+import React from "react";
 import Page from "../shared/Page"
 
 const PermissionsPage = () => {

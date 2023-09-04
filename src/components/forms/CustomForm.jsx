@@ -4,6 +4,7 @@ import TextField from "./fields/TextField";
 import TextAreaField from "./fields/TextAreaField";
 import ToggleField from "./fields/ToggleField";
 import SelectField from "./fields/SelectField";
+import MulitselectField from "./fields/MulitselectField";
 
 const CustomForm = ({ formData }) => {
 
@@ -15,8 +16,14 @@ const CustomForm = ({ formData }) => {
     const [form, setForm] = React.useState(initialState)
 
     const handleChange = (e, field) => {
-        setForm(prevForm => ({...prevForm, [field]: e.target.value}))
+        let value = (!e.target) ? e.map(v => v.value) : e.target.value
+        if(field === 'active') value = !form.active
+        setForm(prevForm => ({...prevForm, [field]: value}))
     }
+
+    React.useEffect(() => {
+        console.log(form)
+    }, [form])
 
     const handleSubmit = () => {
         console.log('submitting form...', form)
@@ -25,13 +32,15 @@ const CustomForm = ({ formData }) => {
     const getField = field => {
         switch(field.type) {
             case "textarea":
-                return <TextAreaField field={field} handleChange={handleChange} />
+                return <TextAreaField form={form} field={field} handleChange={handleChange} />
             case "toggle":
-                return <ToggleField  field={field} handleChange={handleChange} />
+                return <ToggleField form={form}  field={field} handleChange={handleChange} />
             case "select":
-                return <SelectField  field={field} handleChange={handleChange} />
+                return <SelectField form={form}  field={field} handleChange={handleChange} />
+            case "multiselect":
+                return <MulitselectField form={form} field={field} handleChange={handleChange} />
             default:
-                return <TextField field={field} handleChange={handleChange} />
+                return <TextField form={form} field={field} handleChange={handleChange} />
         }
     }
 

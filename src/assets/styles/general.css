@@ -5,7 +5,8 @@ body {
     display: block;
 }
 .page {
-    width: 100%;
+    width: 100vw;
+    min-height: 100vh;
 }
 h1 {
     width: 100%;
@@ -18,4 +19,10 @@ h1 {
 }
 a {
     cursor: pointer;
+}
+nav ul {list-style: none;margin: 10px 0;padding: 00;}
+
+nav ul li {
+    display: inline-block;
+    padding:  0 10px;
 }

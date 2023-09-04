@@ -1,12 +1,8 @@
 import React from 'react'
 import useAPI from "./useAPI"
 
-const useRoles = ({permissions}) => {
-
-    const [roles, setRoles] = React.useState([])
-    const [roleOptions, setRoleOptions] = React.useState(null)
-    const [permissionOptions, setPermissionOptions] = React.useState(null)
-
+const useRoles = ({data, setData}) => {
+  
     const functions = [
         "edit",
         "remove"
@@ -31,11 +27,11 @@ const useRoles = ({permissions}) => {
             },
             {
                 "name": "permissions",
-                "type": "select",
-                "value": "",
+                "type": "multiselect",
+                "value": [],
                 "label": "Permissions",
                 "placeholder": "Select Permissions",
-                "options": permissionOptions
+                "options": (data.permissions) ? data.permissions.map(item => ({label:item.name, value: item._id})) : []
             },
             {
                 "name": "active",
@@ -49,11 +45,33 @@ const useRoles = ({permissions}) => {
                 "value": "",
                 "label": "Parent Role",
                 "placeholder": "Select parent role",
-                "options": roleOptions
+                "options": data.roles
             }
         ]
     }
 
+    const getFormData = (values, type) => {
+
+        return type === "edit" ? getEditFormData(values) : getDeleteFormData(values)
+    }
+
+    const getEditFormData = values => {
+        let editFormData = {...formData}   
+        editFormData.type = "edit"
+        editFormData.fields.forEach(field => {
+            field.value = values[field.name]
+        })
+        return editFormData
+    }
+
+    const getDeleteFormData = values => {
+        console.log('vs', values)
+        let deleteFormData = {
+            _id: values["_id"],
+            type: formData.entity
+        }
+        return deleteFormData   
+    }
     const {
         response,
         loading,
@@ -67,23 +85,16 @@ const useRoles = ({permissions}) => {
 
     React.useEffect(() => {
         if(response) {
-            setRoleOptions(response.roles)
+            setData(prevData => ({...prevData, roles: response.roles}))
         }
     }, [response])
 
-    React.useEffect(() => {
-        if(permissions) {
-            setPermissionOptions(permissions)
-        }
-    }, [permissions])
-
-
     return {
-        roles,
         loading,
         error, 
         functions,
-        formData
+        formData,
+        getFormData
     }
 }
 
