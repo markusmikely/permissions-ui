@@ -49,7 +49,7 @@ const usePermissions = ({setData}) => {
     }
 
     const getEditFormData = values => {
-        let editFormData = {...formData}   
+        let editFormData = {...permissionsFormData}   
         editFormData.type = "edit"
         editFormData.fields.forEach(field => {
             field.value = values[field.name]
