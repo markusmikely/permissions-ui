@@ -10,6 +10,7 @@ const useUsers = ({data, setData}) => {
     const usersFormData = {
         type: "create",
         entity: "user",
+        endpoint: 'users/user/create',
         fields: [
             {
                 "name": "_id",

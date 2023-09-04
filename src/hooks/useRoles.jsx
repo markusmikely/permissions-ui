@@ -11,6 +11,7 @@ const useRoles = ({data, setData}) => {
     const rolesFormData = {
         type: "create",
         entity: "role",
+        endpoint: 'roles/role/create',
         fields: [
             {
                 "name": "_id",

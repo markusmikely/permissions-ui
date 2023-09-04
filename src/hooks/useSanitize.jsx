@@ -7,7 +7,7 @@ const useSanitize = ({data}) => {
                 return value ? "Yes" : "No"
             case "parent":
             case "role":
-                const v = data.roles.filter(d => d._id === value)[0]?.name
+                const v = data.roles ? data.roles.filter(d => d._id === value)[0]?.name : undefined
                 return v ? v : "N/A"
             case "permissions":
                 return value.length

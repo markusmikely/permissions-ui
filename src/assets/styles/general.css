@@ -3,6 +3,8 @@ body {
     text-align: center;
     margin: 0 auto;
     display: block;
+    background: white;
+    color: black;
 }
 .page {
     width: 100vw;

@@ -25,8 +25,22 @@ const CustomForm = ({ formData }) => {
         console.log(form)
     }, [form])
 
-    const handleSubmit = () => {
-        console.log('submitting form...', form)
+    const handleSubmit = e => {
+        // e.preventDefault()
+        const url = "http://localhost:1337/"+formData.endpoint
+        const options = {
+            'method': 'POST',
+            'headers': {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(form)
+        }
+        fetch(url, options)
+            .then(data => data.json())
+            .then(response => console.log('res', response))
+            .catch(error => console.log('err', error))
+        // console.log('submitting form...', form)
     }
 
     const getField = field => {
@@ -58,7 +72,7 @@ const CustomForm = ({ formData }) => {
                         {getField(field)}
                     </FormGroup>
                 })}
-                <button type="submit" onClick={() => handleSubmit()}>{`${formData.type} ${formData.entity}`}</button>
+                <button type="button" onClick={e => handleSubmit()}>{`${formData.type} ${formData.entity}`}</button>
             </form>
         </div>
     )

@@ -13,6 +13,7 @@ const usePermissions = ({setData}) => {
     const permissionsFormData = {
         type: "create",
         entity: "permission",
+        endpoint: 'permissions/permission/create',
         fields: [
             {
                 "name": "_id",
