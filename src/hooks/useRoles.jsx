@@ -56,7 +56,7 @@ const useRoles = ({data, setData}) => {
     }
 
     const getEditFormData = values => {
-        let editFormData = {...formData}   
+        let editFormData = {...rolesFormData}   
         editFormData.type = "edit"
         editFormData.fields.forEach(field => {
             field.value = values[field.name]
@@ -68,7 +68,7 @@ const useRoles = ({data, setData}) => {
         console.log('vs', values)
         let deleteFormData = {
             _id: values["_id"],
-            type: formData.entity
+            type: rolesFormData.entity
         }
         return deleteFormData   
     }

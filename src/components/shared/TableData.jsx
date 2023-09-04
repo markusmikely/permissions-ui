@@ -1,8 +1,8 @@
 import React from "react";
 import useSanitize from "../../hooks/useSanitize";
 
-const TableData = ({data, functions, doAction, getFormData}) => {
-    const { sanitize } = useSanitize({data})
+const TableData = ({sanitize, data, functions, doAction, getFormData}) => {
+    
     return <tbody>
         {data.map((tableRow, tableRowIndex) => {
             return <tr key={tableRowIndex}>

@@ -9,6 +9,8 @@ import PermissionsPage from './components/pages/PermissionsPage'
 import useModal from './hooks/useModal'
 import usePermissions from './hooks/usePermissions'
 import useRoles from './hooks/useRoles'
+import useUsers from './hooks/useUsers'
+import useSanitize from './hooks/useSanitize'
 
 function App() {
 
@@ -26,6 +28,11 @@ function App() {
     } = useModal()
 
     const {
+      usersFormData,
+      getUsersFormData
+    } = useUsers({data, setData})
+
+    const {
       permissionsFormData,
       getPermissionsFormData
     } = usePermissions({setData})
@@ -35,6 +42,8 @@ function App() {
       rolesFormData,
       getRolesFormData
   } = useRoles({data, setData})
+
+  const { sanitize } = useSanitize({data})
 
   return (
     <>
@@ -47,20 +56,29 @@ function App() {
           </ul>
         </nav>
         <Routes>
-          <Route path="/" element={<UsersPage />} />
+          <Route path="/" element={<UsersPage 
+            users={data.users}
+            functions={functions}
+            formData={usersFormData}
+            getFormData={getUsersFormData}
+            doAction={doAction} 
+            sanitize={sanitize}
+          />} />
           <Route path="/roles" element={<RolesPage 
             roles={data.roles}
             permissions={data.permissions}
             functions={functions}
             formData={rolesFormData}
             getFormData={getRolesFormData}
-            doAction={doAction} />} />
+            doAction={doAction}
+            sanitize={sanitize} />} />
           <Route path="/permissions" element={<PermissionsPage 
             permissions={data.permissions}
             functions={functions}
             formData={permissionsFormData}
             getFormData={getPermissionsFormData}
             doAction={doAction} 
+            sanitize={sanitize}
           />} />
         </Routes>
       </Router>
