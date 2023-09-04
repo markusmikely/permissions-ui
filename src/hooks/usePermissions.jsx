@@ -61,7 +61,7 @@ const usePermissions = ({setData}) => {
         console.log('vs', values)
         let deleteFormData = {
             _id: values["_id"],
-            type: formData.entity
+            type: permissionsFormData.entity
         }
         return deleteFormData
     }
