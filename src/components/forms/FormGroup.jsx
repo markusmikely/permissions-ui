@@ -1,10 +1,10 @@
 import React from "react";
 
-const FormGroup = ({label, children}) => {
+const FormGroup = ({label, children, name}) => {
 
     return (
         <div className="form-group">
-            {label && <label>{label}</label>}
+            {label && <label htmlFor={name}>{label}</label>}
             {children}
         </div>
     )

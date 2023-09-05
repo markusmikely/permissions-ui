@@ -1,13 +1,14 @@
 import React from "react";
 
-const ToggleField = ({ form, field, handleChange }) => {
+const ToggleField = ({ field, handleChange }) => {
+
     return (
-        <label className="switch">
+        <label className="switch" htmlFor={field.name}>
             <input 
+                id={field.name}
                 type="checkbox" 
-                name={field.name} 
-                checked={form[field.name] === true}
-                onChange={e => handleChange(e, field.name)} />
+                onChange={e => handleChange(e, field.name)}
+                name={field.name} />
             <span className="slider round"></span>
         </label>
     );

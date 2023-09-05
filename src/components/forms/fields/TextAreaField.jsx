@@ -1,9 +1,10 @@
 import React from "react";
 
-const TextAreaField = ({ form, field, handleChange }) => {
+const TextAreaField = ({ value, field, handleChange }) => {
     return <textarea 
+        id={field.name}
         {...field}
-        value={form[field.name]}
+        value={value}
         onChange={e => handleChange(e, field.name)} />
 }
 

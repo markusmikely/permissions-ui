@@ -1,78 +1,81 @@
 import React from "react";
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import FormGroup from "./FormGroup";
-import TextField from "./fields/TextField";
-import TextAreaField from "./fields/TextAreaField";
-import ToggleField from "./fields/ToggleField";
-import SelectField from "./fields/SelectField";
-import MulitselectField from "./fields/MulitselectField";
+import useForm from "../../hooks/useForm";
+import * as Yup from 'yup';
 
 const CustomForm = ({ formData, handleResponse, close }) => {
 
-    let initialState = {}
-    formData.fields.forEach(field => {
-        initialState[field.name] = field.value
-    })
+    const {
+        getFormTitle,
+        getField,
+        handleSubmit,
+        form
+    } = useForm({formData, handleResponse, close})
+
+    Yup.addMethod(Yup.string, 'checkIfExists', function(message) {
+        return this.test('checkIfExists', message, value => {
+            return new Promise( async (resolve) => {
+                console.log('Sent request for: ' + value);
+                let response = await fetch('http://localhost:1337/users/user/email/' + value )
+                
+                if(response) {
+                    const data = await response.json()
+                    
+                    resolve(data.user === false);
+                }
+                resolve(true);
+                });
+            });
+        }
+    );
+
+    const validations = {
+        name: Yup.string().required('Name is a required field'),
+        permissions: Yup.array().min(1, "At least 1 permission is required").required("Permission cannot be empty"), 
+        password: Yup.string()
+            .min(8, 'Your password should at least be 8 characters.')
+            .max(30, 'Your password can be at most 30 characters.'),
+        password_confirm: Yup.string()
+            .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+        description: Yup.string().required('Description is required'), 
+        email: Yup.string()
+            .required('E-mail is required.')
+            .email('This is not an e-mail address.')
+            .checkIfExists('This e-mail address is already in use.')
+            
+    }
+
+    const formValidations = {}
+    formData.fields.forEach(field => formValidations[field.name] = validations[field.name])
+    const formSchema = Yup.object(formValidations)
+
     
-    const [form, setForm] = React.useState(initialState)
-
-    const handleChange = (e, field) => {
-        let value = (!e.target) ? e.map(v => v.value) : e.target.value
-        if(field === 'active') value = !form.active
-        if(field === 'role' || field === 'parent') value = parseInt(value)
-        setForm(prevForm => ({...prevForm, [field]: value}))
-    }
-
-    const handleSubmit = () => {
-        const url = "http://localhost:1337/"+formData.endpoint
-        const options = {
-            'method': 'POST',
-            'headers': {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(form)
-        }
-        fetch(url, options)
-            .then(data => data.json())
-            .then(response => {
-                const newUser = {...form, ...response}
-                handleResponse(newUser, formData.entity)
-                close()
-            })
-            .catch(error => console.log('err', error))
-    }
-
-    const getField = field => {
-        switch(field.type) {
-            case "textarea":
-                return <TextAreaField form={form} field={field} handleChange={handleChange} />
-            case "toggle":
-                return <ToggleField form={form}  field={field} handleChange={handleChange} />
-            case "select":
-                return <SelectField form={form}  field={field} handleChange={handleChange} />
-            case "multiselect":
-                return <MulitselectField form={form} field={field} handleChange={handleChange} />
-            default:
-                return <TextField form={form} field={field} handleChange={handleChange} />
-        }
-    }
-
-    const getFormTitle = (type, entity) => {
-        const title = type === "create" ? `Create a new ${entity}` : `Edit ${entity}` 
-        return <h4>{title}</h4>
-    }
-
     return (
         <div className="form">
             {getFormTitle(formData.type, formData.entity)}
-            <form>
-                {formData.fields.map((field, fieldIndex) => {
-                    return <FormGroup key={fieldIndex} label={field.label}>
-                        {getField(field)}
-                    </FormGroup>
-                })}
-                <button type="button" onClick={e => handleSubmit()}>{`${formData.type} ${formData.entity}`}</button>
-            </form>
+            <Formik
+                validationSchema={formSchema}
+                initialValues={form}
+                onSubmit={handleSubmit}>
+                {(values) => (
+                    <Form>
+                        {formData.fields.map((f, fieldIndex) => {
+                            return <FormGroup key={fieldIndex} label={f.label} name={f.name}>
+                                <Field name={f.name} {...f}>
+                                    {({
+                                        field
+                                    }) => (
+                                        getField({...field, ...f}, values[field.name])
+                                    )}
+                                </Field>
+                                <ErrorMessage name={f.name} component="div" className="error" />
+                            </FormGroup>
+                        })}
+                        <button type="submit">{`${formData.type} ${formData.entity}`}</button>
+                    </Form>
+                )}
+            </Formik>
         </div>
     )
 }

@@ -1,11 +1,16 @@
 import React from "react";
+import { useFormikContext } from "formik";
 
-const TextField = ({ form, field, handleChange }) => {
+const TextField = ({ value, field, handleChange }) => {
+    
+    const { setFieldValue } = useFormikContext()
+
     return (
         <input 
+            id={field.name}
             {...field}
-            value={form[field.name]}
-            onChange={e => handleChange(e, field.name)} />
+            value={value}
+            onChange={e => {console.log(handleChange); setFieldValue(field.name, e.target.value)}} />
     )
 }
 
