@@ -48,7 +48,8 @@ function App() {
   const handleCreateResponse = (item, list) => {
     // append item to list
     const newData = {...data}
-    newData[list].push(item)
+    newData[list] = [...[item], ...newData[list]]
+    // newData[list].push(item)
     setData(newData)
   }
 

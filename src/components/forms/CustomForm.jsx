@@ -34,7 +34,7 @@ const CustomForm = ({ formData, handleResponse, close }) => {
         fetch(url, options)
             .then(data => data.json())
             .then(response => {
-                const newUser = {...form, _id: Object.values(response)[0]}
+                const newUser = {...form, ...response}
                 handleResponse(newUser, formData.entity)
                 close()
             })
