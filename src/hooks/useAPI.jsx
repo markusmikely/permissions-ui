@@ -46,7 +46,6 @@ const useAPI = () => {
                 responses.forEach(r => {
                     response[Object.keys(r)] = Object.values(r)[0]
                 })
-                console.log('r', response)
                 setResponse(response)
             })
             .catch(error => {

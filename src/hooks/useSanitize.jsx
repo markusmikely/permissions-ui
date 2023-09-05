@@ -14,12 +14,6 @@ const useSanitize = ({data}) => {
             default: 
                 return value   
         }
-
-        console.log(value, type)
-        if(Array.isArray(value)) {
-            return value.length
-        }
-        return value
     }
 
     return {

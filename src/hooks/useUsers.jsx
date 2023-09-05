@@ -9,7 +9,7 @@ const useUsers = ({data, setData}) => {
 
     const usersFormData = {
         type: "create",
-        entity: "user",
+        entity: "users",
         endpoint: 'users/user/create',
         fields: [
             {
@@ -71,7 +71,6 @@ const useUsers = ({data, setData}) => {
     }
 
     const getDeleteFormData = values => {
-        console.log('vs', values)
         let deleteFormData = {
             _id: values["_id"],
             type: usersFormData.entity

@@ -45,6 +45,34 @@ function App() {
 
   const { sanitize } = useSanitize({data})
 
+  const handleCreateResponse = (item, list) => {
+    // append item to list
+    const newData = {...data}
+    newData[list].push(item)
+    setData(newData)
+  }
+
+  const handleUpdateResponse = (item, list) => {
+    // update item in list
+    const newData = {...data}
+    const itemIndex = newData[list].map(i => i._id).indexOf(item._id)
+    newData[list][itemIndex] = item
+    setData(newData)
+  }
+  const handlDeleteResponse = () => {
+    // remove item from list
+    const newData = {...data}
+    const itemIndex = newData[list].map(i => i._id).indexOf(item._id)
+    newData[list].splice(itemIndex, 1)
+    setData(newData)
+  }
+
+  const responseHandler = {
+    create: handleCreateResponse,
+    update: handleUpdateResponse,
+    delete: handlDeleteResponse
+  }
+
   return (
     <>
       <Router>
@@ -63,6 +91,7 @@ function App() {
             getFormData={getUsersFormData}
             doAction={doAction} 
             sanitize={sanitize}
+            handleResponse={responseHandler}
           />} />
           <Route path="/roles" element={<RolesPage 
             roles={data.roles}
@@ -71,7 +100,8 @@ function App() {
             formData={rolesFormData}
             getFormData={getRolesFormData}
             doAction={doAction}
-            sanitize={sanitize} />} />
+            sanitize={sanitize}
+            handleResponse={responseHandler} />} />
           <Route path="/permissions" element={<PermissionsPage 
             permissions={data.permissions}
             functions={functions}
@@ -79,6 +109,7 @@ function App() {
             getFormData={getPermissionsFormData}
             doAction={doAction} 
             sanitize={sanitize}
+            handleResponse={responseHandler}
           />} />
         </Routes>
       </Router>

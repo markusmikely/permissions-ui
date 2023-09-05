@@ -10,6 +10,10 @@ body {
     width: 100vw;
     min-height: 100vh;
 }
+.page .content {
+    padding: 0 20px 40px;
+}
+
 h1 {
     width: 100%;
     background: darkblue;

@@ -6,15 +6,12 @@ const useModal = () => {
     const [open, setOpen] = React.useState(false)
     const [modalContent, setModalContent] = React.useState(null)
     
-    const doAction = (type, formData, values) => {
-        console.log('type', type)
-        console.log('formData', formData)
-        console.log('values', values)
-
+    const doAction = (type, formData, handleResponse, values) => {
+        
         setOpen(false);
         switch(type) {
             case 'edit':
-                setModalContent(<CustomForm formData={formData} />)
+                setModalContent(<CustomForm formData={formData} handleResponse={handleResponse.update} close={() => setOpen(false)}/>)
                 break;
             case 'remove':
                 setModalContent(<ConfirmForm 
@@ -25,7 +22,7 @@ const useModal = () => {
                     item={values.name} />)
                 break;
             case 'create':
-                setModalContent(<CustomForm formData={formData}/>)
+                setModalContent(<CustomForm formData={formData} handleResponse={handleResponse.create} close={() => setOpen(false)}/>)
                 break;
         }
         setOpen(true);

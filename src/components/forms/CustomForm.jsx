@@ -6,7 +6,7 @@ import ToggleField from "./fields/ToggleField";
 import SelectField from "./fields/SelectField";
 import MulitselectField from "./fields/MulitselectField";
 
-const CustomForm = ({ formData }) => {
+const CustomForm = ({ formData, handleResponse, close }) => {
 
     let initialState = {}
     formData.fields.forEach(field => {
@@ -21,12 +21,7 @@ const CustomForm = ({ formData }) => {
         setForm(prevForm => ({...prevForm, [field]: value}))
     }
 
-    React.useEffect(() => {
-        console.log(form)
-    }, [form])
-
-    const handleSubmit = e => {
-        // e.preventDefault()
+    const handleSubmit = () => {
         const url = "http://localhost:1337/"+formData.endpoint
         const options = {
             'method': 'POST',
@@ -38,9 +33,12 @@ const CustomForm = ({ formData }) => {
         }
         fetch(url, options)
             .then(data => data.json())
-            .then(response => console.log('res', response))
+            .then(response => {
+                const newUser = {...form, _id: Object.values(response)[0]}
+                handleResponse(newUser, formData.entity)
+                close()
+            })
             .catch(error => console.log('err', error))
-        // console.log('submitting form...', form)
     }
 
     const getField = field => {

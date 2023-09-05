@@ -10,7 +10,7 @@ const useRoles = ({data, setData}) => {
 
     const rolesFormData = {
         type: "create",
-        entity: "role",
+        entity: "roles",
         endpoint: 'roles/role/create',
         fields: [
             {
@@ -66,7 +66,6 @@ const useRoles = ({data, setData}) => {
     }
 
     const getDeleteFormData = values => {
-        console.log('vs', values)
         let deleteFormData = {
             _id: values["_id"],
             type: rolesFormData.entity

@@ -2,7 +2,6 @@ import React from "react";
 
 const SelectField = ({ form, field, handleChange }) => {
 
-    console.log(field.options)
     if(!field.options) return null 
 
     return (
