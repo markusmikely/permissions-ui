@@ -42,7 +42,7 @@ const useUsers = ({data, setData}) => {
             {
                 "name": "role",
                 "type": "select",
-                "value": -1,
+                "value": (data.roles) ? data.roles[0]._id : 0,
                 "label": "Role",
                 "placeholder": "Select Role",
                 "options": data.roles

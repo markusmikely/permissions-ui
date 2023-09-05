@@ -1,4 +1,4 @@
-import React from "react";
+import moment from "moment";
 
 const useSanitize = ({data}) => {
     const sanitize = (value, type) => {
@@ -11,6 +11,8 @@ const useSanitize = ({data}) => {
                 return v ? v : "N/A"
             case "permissions":
                 return value.length
+            case "created":
+                return moment(value).format("DD/MM/YYYY hh:mm a")
             default: 
                 return value   
         }

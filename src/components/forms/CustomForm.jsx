@@ -18,6 +18,7 @@ const CustomForm = ({ formData, handleResponse, close }) => {
     const handleChange = (e, field) => {
         let value = (!e.target) ? e.map(v => v.value) : e.target.value
         if(field === 'active') value = !form.active
+        if(field === 'role' || field === 'parent') value = parseInt(value)
         setForm(prevForm => ({...prevForm, [field]: value}))
     }
 

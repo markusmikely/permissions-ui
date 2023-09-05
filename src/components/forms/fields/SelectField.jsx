@@ -10,7 +10,7 @@ const SelectField = ({ form, field, handleChange }) => {
             value={form[field.name]}
             onChange={e => handleChange(e, field.name)}>
                 {field.options.map((option, optionIndex) => {
-                    return <option key={optionIndex} value={option._id}>{option.name}</option>
+                    return <option key={optionIndex} value={parseInt(option._id)}>{option.name}</option>
                 })}
         </select>
     )
